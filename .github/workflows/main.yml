@@ -23,7 +23,7 @@ jobs:
       - name: Validate HTML
         uses: Cyb3r-Jak3/html5validator-action@v0.4
         with:
-          root: .
+          root: ./public
 
   deploy:
     name: Deploy to GitHub Pages
