@@ -1,9 +1,10 @@
-name: Deploy Portfolio to GitHub Pages
+name: CI and Deploy Portfolio
 
 on:
   push:
     branches:
       - main
+  pull_request:
 
 permissions:
   contents: read
@@ -11,7 +12,23 @@ permissions:
   id-token: write
 
 jobs:
+  ci:
+    name: CI Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v0.4
+        with:
+          root: .
+
   deploy:
+    name: Deploy to GitHub Pages
+    needs: ci   # 👈 deploy ONLY if CI passes
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
