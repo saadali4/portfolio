@@ -22,10 +22,8 @@ jobs:
 
       - name: Validate HTML
         run: |
-          docker run --rm \
-            -v "$PWD:/data" \
-            ghcr.io/validator/validator:latest \
-            /data
+          npm install -g html-validator-cli
+          npx html-validator --file=index.html --verbose
 
   deploy:
     name: Deploy to GitHub Pages
